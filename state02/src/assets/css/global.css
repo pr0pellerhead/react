@@ -1,0 +1,48 @@
+body {
+    font-family: sans-serif;
+}
+
+    .incrementer button {
+        width: 40px;
+        font-weight: bold;
+        font-size: 22px;
+    }
+
+    .incrementer span {
+        width: 50px;
+        font-weight: bold;
+        font-size: 22px;
+        display: inline-block;
+        text-align: center
+}
+
+form {
+    margin: 50px;
+}
+
+    form p{
+        position: relative;
+        display: table;
+    }
+
+        form input{
+            box-sizing: border-box;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid grey;
+            width: 300px;
+        }
+
+        form input[type="submit"]{
+            background: darkgoldenrod;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        form .reveal-pass {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+        }
