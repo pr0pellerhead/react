@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 
 import { TodoList } from "./TodoList";
 import { TodoField } from "./TodoField";
+import { Welcome } from "./Welcome";
 
-import { addTodo } from "../actions/TodoAction";
+import { addTodo, removeTodo } from "../actions/TodoAction";
+import { fetchUsers } from "../actions/UsersAction";
 
 export class App extends React.Component {
 
@@ -12,10 +14,14 @@ export class App extends React.Component {
         super(props);
 
         this.state = {
-            todoValue: ""
+            todoValue: "",
         }
 
         this.handleTodoChange = this.handleTodoChange.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.zemiKorisnici();
     }
 
     handleTodoChange(e) {
@@ -24,16 +30,34 @@ export class App extends React.Component {
         })
     }
 
+    dodadiTodo(todo, e) {
+        e.preventDefault();
+        if(this.state.todoValue !== "") {
+            this.props.addTodo(todo);
+            this.setState({
+                todoValue: ""
+            });
+        }
+    }
+
     render() {
+        
         return (
             <div id="app">
                 <div className="centered-content">
+                    <Welcome 
+                        name="Mario"
+                        age={50}
+                    />
                     <TodoField 
                         handleChange={this.handleTodoChange}
                         todoValue={this.state.todoValue}
-                        addTodo={(event) => this.props.addTodo(this.state.todoValue, event)}
+                        addTodo={(event) => this.dodadiTodo(this.state.todoValue, event)}
                     />
-                    <TodoList todos={this.props.todos} />
+                    <TodoList 
+                        todos={this.props.todos}
+                        removeTodo={(todo) => this.props.removeTodo(todo)}
+                    />
                 </div>
             </div>
         )
@@ -42,15 +66,20 @@ export class App extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        todos: state.TodoReducer.todos
+        todos: state.TodoReducer.todos 
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addTodo: (todo, e) => {
-            e.preventDefault();
+        addTodo: (todo) => {
             dispatch(addTodo(todo));
+        },
+        removeTodo: (todo) => {
+            dispatch(removeTodo(todo));
+        },
+        zemiKorisnici: () => {
+            dispatch(fetchUsers())
         }
     }
 }

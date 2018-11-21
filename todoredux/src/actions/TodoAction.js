@@ -5,3 +5,9 @@ export const addTodo = (todo) => {
     }
 }
 
+export const removeTodo = (todo) => {
+    return {
+        type: "REMOVE_TODO",
+        payload: todo
+    }
+}
