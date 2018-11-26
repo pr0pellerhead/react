@@ -9,41 +9,34 @@ export const UsersTable = (props) => {
                         <th>Name</th>
                         <th>E-mail</th>
                         <th>Role</th>
-                        <th>Country</th>
-                        <th>City</th>
-                        <th>Municipality</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>Mario Petkovski</td>
-                        <td>mario5etkovski@gmail.com</td>
-                        <td>Admin</td>
-                        <td>Macedonia</td>
-                        <td>City</td>
-                        <td>Opstina Aerodrom</td>
-                        <td><button>-</button></td>
-                    </tr>
-                    <tr>
-                        <td>Mario Petkovski</td>
-                        <td>mario5etkovski@gmail.com</td>
-                        <td>Admin</td>
-                        <td>Macedonia</td>
-                        <td>City</td>
-                        <td>Opstina Aerodrom</td>
-                        <td><button>-</button></td>
-                    </tr>
-                    <tr>
-                        <td>Mario Petkovski</td>
-                        <td>mario5etkovski@gmail.com</td>
-                        <td>Admin</td>
-                        <td>Macedonia</td>
-                        <td>City</td>
-                        <td>Opstina Aerodrom</td>
-                        <td><button>-</button></td>
-                    </tr>
+                    {
+                        props.users.length !== 0
+
+                        ?
+
+                        props.users.map((user) => {
+                            return (
+                                <tr key={user._id}>
+                                    <td>{user.firstname} {user.lastname}</td>
+                                    <td>{user.email}</td>
+                                    <td>{user.role}</td>
+                                    <td>
+                                        <button onClick={() => props.deleteUser(user._id)}>-</button>
+                                        <button onClick={() => props.startEdit(user)}>Edit</button>
+                                    </td>
+                                </tr>
+                            )
+                        })
+
+                        :
+
+                        null
+                    }
                 </tbody>
             </table>          
         </div>
